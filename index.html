@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateforme CA Initiative</title>
+    <link rel="stylesheet" href="./CSS/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=BBH+Bogle&family=Bebas+Neue&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Text:wght@200..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <script src="./JS/script.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <a href="#"><img src="./img/CA_logo.png" alt="LOGO"></a>
+            </div>
+            <div class="contactEtConnect">
+                <div class="search"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <a href="#" class="link"><i class="fa-solid fa-location-dot"></i>Nous trouver</a>
+                <a href="#" class="link"><i class="fa-regular fa-comments"></i>Contact</a>
+                <a href="#" class="btn1">Ouvrir un compte</a>
+                <a href="#" class="btn2"><i class="fa-regular fa-user"></i>Me connecter</a>
+            </div>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Comptes & Cartes</a></li>
+                <li><a href="#">Épargne</a></li>
+                <li><a href="#">Assurances</a></li>
+                <li><a href="#">Crédits</a></li>
+                <li><a href="#">Simulation & devis</a></li>
+                <li><a href="#">Nos conseils</a></li>
+                <li><a href="#">Boutique en ligne</a></li>
+                <li><a href="#">Espace Jeunes</a></li>
+                <li><a href="#">Initiatives</a></li>
+            </ul>
+            <img src="./img/menu_icon.svg" alt="menu icon" class="iconMenu">
+        </nav>
+    </header>
+    <main>
+        <section id="presentation">
+            <h1>Initiatives Crédit Agricole</h1>
+            <h5>Oui c'est vrai on aide les gens et tout là miam miam</h5>
+            <h3>Découvrez les initiatives locales du Crédit Agricole et de ses partenaires, du soutien <br> des petits
+                commerces aux actions sociales.</h3>
+        </section>
+        <section id="carte">
+            <div>
+                <div id="loading">Chargement...</div>
+                <div id="container">
+                    <canvas id="map-canvas"></canvas>
+                    <canvas id="three-canvas"></canvas>
+                </div>
+
+                <div id="controls">
+                    <div><strong>Carte Interactive PACA</strong></div>
+                    <div style="margin-top: 5px; font-size: 10px;">Cliquez sur les éléments 3D pour découvrir les initiatives</div>
+                </div>
+
+                <div id="legend">
+                    <h4>Types de Projets</h4>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #2ecc71;"></div>
+                        <span>Écologique</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #27C8F5;"></div>
+                        <span>Citoyen</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #e74c3c;"></div>
+                        <span>Immobilier</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #f39c12;"></div>
+                        <span>Associatif</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #FFC0CB;"></div>
+                        <span>Communautaire</span>
+                    </div>
+                </div>
+
+                <div id="popup" class="info-popup">
+                    <button class="close-btn" onclick="closePopup()">×</button>
+                    <h3 id="popup-title">Cellule #1</h3>
+                    <p id="popup-content">Contenu de la cellule</p>
+                </div>
+                <div class="menu-container">
+                    <button class="btn" id="btn-deposer">
+                        <img src="./img/cercle_aide.svg" alt="cercle_aide">
+                        <p>Déposer une demande</p>
+                    </button>
+                </div>
+
+                <div class="form-overlay hidden" id="overlay-form">
+                    <span class="retour-btn">Retour</span>
+                    <span class="closing-btn">X</span>
+
+                    <form id="form1">
+                        <fieldset>
+                            <h2>Demande d'aide</h2>
+                            <label for="typeAide">Sélectionnez le type d'aide</label>
+                            <select name="typeAide" id="typeAide">
+                                <option value="Demande_de_financement">Demande de financement</option>
+                                <option value="Soutenir_son_commerce">Soutenir son commerce</option>
+                                <option value="Financer_son_projet">Financer son projet</option>
+                                <option value="Lancer_son_projet_social">Lancer son projet social</option>
+                            </select>
+                            <input type="submit" value="Suivant">
+                        </fieldset>
+                    </form>
+
+                    <form class="hidden" id="form2">
+                        <fieldset>
+                            <h2>Vos coordonnées</h2>
+                            <label for="nom">Nom* : </label><input type="text" placeholder="Doe">
+                            <label for="prenom">Prénom* : </label><input type="text" placeholder="John">
+                            <label for="entreprise">Entreprise/Association* :</label><input type="text"
+                                placeholder="Exemple : Finance Club Conseil">
+                            <label for="mail">Email* : </label><input type="email"
+                                placeholder="Exemple : contact@financeclubconseil.com">
+                            <label for="tel">Téléphone* :</label><input type="tel" placeholder="04.82.XX.XX.XX">
+                            <label for="initiative">Votre initiative* :</label><textarea name="initiative" id="message"
+                                cols="10" rows="5"></textarea>
+                            <input type="submit" value="Envoyer la demande">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-container">
+
+            <div class="dashboard-col-main">
+                <article class="bento-card search-card">
+                    <div class="card-content">
+                        <h2>Trouver une initiative</h2>
+                        <div class="search-bar">
+                            <input type="text" placeholder="Rechercher par mot-clé, région, ou type..."
+                                id="searchInput">
+                            <button type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Environnement</span>
+                            <span class="tag">Social</span>
+                            <span class="tag">Culture</span>
+                            <span class="tag">Sport</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bento-card current-projects-card">
+                    <div class="card-header">
+                        <h3>En cours d'aide</h3>
+                        <a href="#" class="view-all">Voir tout</a>
+                    </div>
+                    <ul class="project-list">
+                        <li class="project-item">
+                            <div class="status-indicator active"></div>
+                            <div class="project-info">
+                                <h4>Rénovation Vieux-Nice</h4>
+                                <span class="meta">Patrimoine • Alpes-Maritimes</span>
+                            </div>
+                        </li>
+                        <li class="project-item">
+                            <div class="status-indicator active"></div>
+                            <div class="project-info">
+                                <h4>Ferme de l'Esterel</h4>
+                                <span class="meta">Éducation • Var</span>
+                            </div>
+                        </li>
+                        <li class="project-item">
+                            <div class="status-indicator active"></div>
+                            <div class="project-info">
+                                <h4>Inclusion Numérique 06</h4>
+                                <span class="meta">Social • Nice</span>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="dashboard-col-middle">
+                <article class="bento-card impact-card">
+                    <div class="card-header">
+                        <h3>Impact du Territoire</h3>
+                        <span class="icon">🌍</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="stat-group">
+                            <div class="stat-item">
+                                <span class="stat-value">1,240</span>
+                                <span class="stat-label">Projets Soutenus</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">4.5M€</span>
+                                <span class="stat-label">Débloqués</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">850</span>
+                                <span class="stat-label">Associations</span>
+                            </div>
+                        </div>
+                        <div class="impact-chart-placeholder">
+                            <div class="bar" style="height: 60%;"></div>
+                            <div class="bar" style="height: 80%;"></div>
+                            <div class="bar" style="height: 45%;"></div>
+                            <div class="bar" style="height: 90%;"></div>
+                            <div class="bar" style="height: 75%;"></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bento-card success-card">
+                    <div class="card-header">
+                        <h3>Histoires de Réussite</h3>
+                    </div>
+                    <div class="success-grid">
+                        <div class="success-item">
+                            <div class="success-image" style="background-color: #a8dadc;"></div>
+                            <div class="success-info">
+                                <h4>Jardin Partagé Var</h4>
+                                <p>Inauguré en 2024</p>
+                            </div>
+                        </div>
+                        <div class="success-item">
+                            <div class="success-image" style="background-color: #f1faee;"></div>
+                            <div class="success-info">
+                                <h4>Cinéma Plein Air Cannes</h4>
+                                <p>+10k visiteurs</p>
+                            </div>
+                        </div>
+                        <div class="success-item">
+                            <div class="success-image" style="background-color: #ffd6ff;"></div>
+                            <div class="success-info">
+                                <h4>Vélo Bleu Solidaire</h4>
+                                <p>300 vélos réparés</p>
+                            </div>
+                        </div>
+                        <div class="success-item">
+                            <div class="success-image" style="background-color: #caffbf;"></div>
+                            <div class="success-info">
+                                <h4>Café Associatif Vence</h4>
+                                <p>Lieu de vie créé</p>
+                            </div>
+                        </div>
+                        <div class="success-item">
+                            <div class="success-image" style="background-color: #ffadad;"></div>
+                            <div class="success-info">
+                                <h4>Banque Alim. 06</h4>
+                                <p>500 familles</p>
+                            </div>
+                        </div>
+                        <div class="success-item">
+                            <div class="success-image" style="background-color: #ffd6a5;"></div>
+                            <div class="success-info">
+                                <h4>Handivoile Antibes</h4>
+                                <p>Nouvel équipement</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </article>
+            </div>
+
+            <div class="dashboard-col-right">
+                <article class="bento-card types-card">
+                    <div class="card-header">
+                        <h3>Thématiques</h3>
+                    </div>
+                    <div class="card-content centered">
+                        <div class="pie-chart-mock">
+                            <div class="pie-segment"></div>
+                            <div class="chart-center">
+                                <span>Top: <br><strong>Social</strong></span>
+                            </div>
+                        </div>
+                        <ul class="legend">
+                            <li><span class="dot c-1"></span> Social (45%)</li>
+                            <li><span class="dot c-2"></span> Culture (30%)</li>
+                            <li><span class="dot c-3"></span> Sport (15%)</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="bento-card upcoming-card">
+                    <div class="card-header">
+                        <h3>Prochainement</h3>
+                    </div>
+                    <div class="upcoming-list">
+                        <div class="upcoming-item">
+                            <div class="date-badge">12 Fév</div>
+                            <div class="details">
+                                <h4>Gymnase Intelligent Nice</h4>
+                                <span class="tag-sm">Sport</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-item">
+                            <div class="date-badge">28 Mar</div>
+                            <div class="details">
+                                <h4>Eco-Fest Mouans-Sartoux</h4>
+                                <span class="tag-sm">Env.</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-item">
+                            <div class="date-badge">10 Avr</div>
+                            <div class="details">
+                                <h4>Sentier Douaniers</h4>
+                                <span class="tag-sm">Culture</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-item">
+                            <div class="date-badge">05 Mai</div>
+                            <div class="details">
+                                <h4>Forum Asso Menton</h4>
+                                <span class="tag-sm">Social</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="end">
+            <div class="logo">
+                <img src="./img/CA_logo.png" alt="CA logo">
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
